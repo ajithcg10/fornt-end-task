@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { setLoading, setPosts, setError } from "../redux/postsSlice"; // Actions from your slice
 import { fetchPostsAPI } from "../api/api"; // API function
 
