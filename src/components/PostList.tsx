@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPost, deletePost, updatePost } from "../redux/postsSlice";
+import { deletePost } from "../redux/postsSlice";
 import { RootState } from "../store/store";
 import usePosts from "../hooks/usePosts";
 import FilterSection from "./FilterSection";
 import { Search, Plus } from "lucide-react";
-import Loader from "./general/loader";
+import Loader from "./general/Loader";
 import ErroHandler from "./general/ErroHandler";
 import { Post } from "../types/type";
 import { FormModal } from "./general/FormModal";
+import DeletePostModal from "./general/DeletePostModal";
 
 const PostList: React.FC = () => {
   const { posts, loading, error } = useSelector(
@@ -17,10 +18,15 @@ const PostList: React.FC = () => {
   const dispatch = useDispatch();
   usePosts();
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [sortOption, setSortOption] = useState<string>("asc");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [sortOption, setSortOption] = useState<string>("");
   const [modalData, setModalData] = useState<Post>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalDelete, setModalDelete] = useState(false);
+  const [deletePostData, setDeletePostData] = useState<{
+    id: number;
+    title: string;
+  } | null>(null);
+
   const handleUpdate = (updatedPost: Post) => {
     setIsModalOpen(true);
     setModalData(updatedPost);
@@ -30,8 +36,9 @@ const PostList: React.FC = () => {
     setModalData(undefined);
   };
 
-  const handleDelete = (postId: number) => {
-    dispatch(deletePost(postId));
+  const handleDelete = (post: Post) => {
+    setDeletePostData({ id: post.id, title: post.title });
+    setModalDelete(true);
   };
 
   const filteredPosts = posts
@@ -39,10 +46,12 @@ const PostList: React.FC = () => {
       post.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => {
+      if (!sortOption) return 0; // No sorting if sortOption is undefined or empty
       return sortOption === "asc"
         ? a.title.localeCompare(b.title)
         : b.title.localeCompare(a.title);
     });
+
   const handleSortChange = (option: string) => setSortOption(option);
 
   if (loading) return <Loader />;
@@ -141,7 +150,7 @@ const PostList: React.FC = () => {
                           Update
                         </button>
                         <button
-                          onClick={() => handleDelete(post.id)}
+                          onClick={() => handleDelete(post)}
                           className="inline-flex items-center px-3 py-1 border cursor-pointer border-red-600 text-red-600 rounded-md hover:bg-red-50 transition-colors duration-200"
                         >
                           Delete
@@ -159,6 +168,21 @@ const PostList: React.FC = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         post={modalData}
+      />
+      <DeletePostModal
+        isOpen={isModalDelete}
+        onClose={() => {
+          setModalDelete(false);
+          setDeletePostData(null);
+        }}
+        postTitle={deletePostData?.title || ""}
+        onConfirm={() => {
+          if (deletePostData) {
+            dispatch(deletePost(deletePostData.id));
+            setModalDelete(false);
+            setDeletePostData(null);
+          }
+        }}
       />
     </div>
   );
