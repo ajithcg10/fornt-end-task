@@ -24,7 +24,9 @@ const FilterSection: React.FC<FilterSectionProps> = ({
                 type="radio"
                 name="sort"
                 checked={sortOption === "asc"}
-                onChange={() => handleSortChange("asc")}
+                onChange={() => {
+                  handleSortChange("asc"), setIsFilterOpen(false);
+                }}
               />
               <span>A to Z</span>
             </label>
@@ -35,7 +37,9 @@ const FilterSection: React.FC<FilterSectionProps> = ({
                 type="radio"
                 name="sort"
                 checked={sortOption === "desc"}
-                onChange={() => handleSortChange("desc")}
+                onChange={() => {
+                  handleSortChange("desc"), setIsFilterOpen(false);
+                }}
               />
               <span>Z to A</span>
             </label>
