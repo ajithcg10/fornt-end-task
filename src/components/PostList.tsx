@@ -64,7 +64,7 @@ const PostList: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
           <button
             onClick={() => handleAdd()}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-400 hover:via-blue-500 hover:to-blue-600 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50"
+            className="flex items-center cursor-pointer gap-2 px-6 py-3 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-400 hover:via-blue-500 hover:to-blue-600 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50"
           >
             <Plus size={20} />
             <span className="font-semibold">Add Post</span>

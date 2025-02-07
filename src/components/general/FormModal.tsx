@@ -128,14 +128,14 @@ export const FormModal = ({
           <div className="flex justify-end space-x-2">
             <button
               type="button"
-              className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition"
+              className="px-4 py-2 bg-gray-300 text-gray-800  cursor-pointer rounded-lg hover:bg-gray-400 transition"
               onClick={handleClose}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+              className="px-4 py-2 bg-blue-600 cursor-pointer text-white rounded-lg hover:bg-blue-700 transition"
             >
               {post ? "Update" : "Submit"}
             </button>
