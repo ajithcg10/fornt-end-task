@@ -11,10 +11,14 @@ Tailwind CSS
 
 🛠️ Installation Steps
 
-1, Clone the repository - git clone https://github.com/your-username/your-repo-name.git
-2, Change the working directory - cd your-repo-name
+1, Clone the repository - git clone https://github.com/ajithcg10/fornt-end-task.git
+
+2, Change the working directory - fornt-end-task
+
 3, Install dependencies - npm install
+
 4, Run the app - npm run dev
+
 🌟 You are all set! Open localhost:5173 to see the app.
 
 🏗️ Building for Production
