@@ -91,76 +91,117 @@ const PostList: React.FC = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-xl shadow-lg bg-white border border-gray-200">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                  >
-                    Body
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                  >
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filteredPosts.length === 0 ? (
-                  <tr>
-                    <td
-                      colSpan={3}
-                      className="px-6 py-4 text-center text-[20px] font-[400] text-amber-400"
-                    >
-                      No posts found
-                    </td>
-                  </tr>
-                ) : (
-                  filteredPosts.map((post) => (
-                    <tr
-                      key={post.id}
-                      className="hover:bg-gray-50 transition-colors duration-150"
-                    >
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
-                          {post.title}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-500 line-clamp-2">
-                          {post.body}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-center">
+        <div className="w-full  mx-auto">
+          {/* Card wrapper with responsive padding */}
+          <div className="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+            {/* Large screens - Regular table layout */}
+            <div className="hidden md:block">
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th
+                        scope="col"
+                        className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Title
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Body
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {filteredPosts.length === 0 ? (
+                      <tr>
+                        <td
+                          colSpan={3}
+                          className="px-4 py-3 text-center text-lg font-normal text-amber-400"
+                        >
+                          No posts found
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredPosts.map((post) => (
+                        <tr
+                          key={post.id}
+                          className="hover:bg-gray-50 transition-colors duration-150"
+                        >
+                          <td className="px-4 py-3 whitespace-nowrap">
+                            <div className="text-sm font-medium text-gray-900">
+                              {post.title}
+                            </div>
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="text-sm text-gray-500 line-clamp-2">
+                              {post.body}
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 whitespace-nowrap text-center">
+                            <div className="flex justify-center gap-2">
+                              <button
+                                onClick={() => handleUpdate(post)}
+                                className="inline-flex items-center px-3 py-1 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors duration-200"
+                              >
+                                Update
+                              </button>
+                              <button
+                                onClick={() => handleDelete(post)}
+                                className="inline-flex items-center px-3 py-1 border border-red-600 text-red-600 rounded-md hover:bg-red-50 transition-colors duration-200"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {/* Mobile layout - Card style */}
+            <div className="md:hidden">
+              {filteredPosts.length === 0 ? (
+                <div className="p-4 text-center text-lg font-normal text-amber-400">
+                  No posts found
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-200">
+                  {filteredPosts.map((post) => (
+                    <div key={post.id} className="p-4 space-y-3">
+                      <div className="text-sm font-medium text-gray-900">
+                        {post.title}
+                      </div>
+                      <div className="text-sm text-gray-500">{post.body}</div>
+                      <div className="flex gap-2 pt-2">
                         <button
                           onClick={() => handleUpdate(post)}
-                          className="inline-flex items-center px-3 py-1 border cursor-pointer border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors duration-200 mr-2"
+                          className="flex-1 inline-flex justify-center items-center px-3 py-1 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors duration-200"
                         >
                           Update
                         </button>
                         <button
                           onClick={() => handleDelete(post)}
-                          className="inline-flex items-center px-3 py-1 border cursor-pointer border-red-600 text-red-600 rounded-md hover:bg-red-50 transition-colors duration-200"
+                          className="flex-1 inline-flex justify-center items-center px-3 py-1 border border-red-600 text-red-600 rounded-md hover:bg-red-50 transition-colors duration-200"
                         >
                           Delete
                         </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
